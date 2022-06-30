@@ -1,5 +1,11 @@
 import pygame
 
+pygame.init()
+
+white = (255, 255, 255)
+green = (0, 255, 0)
+blue = (0, 0, 128)
+
 #Cor de fundo preto
 BLACK = pygame.Color(0, 0, 0)
 
@@ -68,7 +74,7 @@ while True:
         barra_pad.move_ip(velocity_Barra * dt, 0)
 
     # usa a função move inplace
-    square.move_ip(velocity_x * dt, parametro )
+
 
     # checa por colisão com os pads laterias
     if square.collidelist(pads_left) >= 0:
@@ -81,12 +87,23 @@ while True:
     if square.collidelist(pads_super) >= 0:
         parametro = -parametro
 
+    if square.collidelist([short_pad]) >= 0:
+        print("oi")
+        txt = 'GAME OVER'  ##### armazena o texto
+        pygame.font.init()  ##### inicia font
+        fonte = pygame.font.get_default_font()  ##### carrega com a fonte padrão
+        fontesys = pygame.font.SysFont(fonte, 60)  ##### usa a fonte padrão
+        txttela = fontesys.render(txt, 1, (0, 255, 0))  ##### renderiza o texto na cor desejada
+        screen.blit(txttela, (130, 200))  ##### coloca na posição 50,900 (tela FHD)
+        pygame.display.update()
+        #break
+    else:
+        screen.fill(BLACK)
+        square.move_ip(velocity_x * dt, parametro)
+
     if (square.collidelist(a) == 0):
         if (super_alvo in desenhos):
             desenhos.pop(5)
-
-
-    screen.fill(BLACK)
 
     # desenha o quadrado usando o Rect
     pygame.draw.rect(screen, WHITE, square)
@@ -95,4 +112,4 @@ while True:
     for pad in desenhos:
         pygame.draw.rect(screen, WHITE, pad)
 
-    pygame.display.flip()
+    pygame.display.update()
