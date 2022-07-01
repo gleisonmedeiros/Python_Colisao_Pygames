@@ -27,8 +27,6 @@ blue = (0, 0, 128)
 black = pygame.Color(0, 0, 0)
 write = pygame.Color(255, 255, 255)
 
-pygame.init()
-
 #Resolução da tela 640x480
 screen = pygame.display.set_mode((500, 480))
 
