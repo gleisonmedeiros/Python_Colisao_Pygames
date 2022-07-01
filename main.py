@@ -9,6 +9,15 @@ def renderiza_texto(texto,posicao_x,posicao_y,tamanho):
     screen.blit(txttela, (posicao_x, posicao_y))  ##### coloca na posição
     pygame.display.update()
 
+def movimenta_barra():
+
+    if keys[pygame.K_d] and barra_pad.collidelist([right_pad]) != 0:
+        velocity_Barra = 0.6
+        barra_pad.move_ip(velocity_Barra * dt, 0)
+
+    if keys[pygame.K_a] and barra_pad.collidelist([left_pad]) != 0:
+        velocity_Barra = -0.6
+        barra_pad.move_ip(velocity_Barra * dt, 0)
 
 pygame.init()
 
@@ -28,7 +37,7 @@ pygame.display.set_caption('Jogo colisão')
 
 valor = 31
 
-square = pygame.Rect(300, 70, 10, 10)  # cria o Rect para o quadrado
+square = pygame.Rect(300, 90, 10, 10)  # cria o Rect para o quadrado
 left_pad = pygame.Rect(20, 21, 20, 440)  # Cria o Rect para parede esquerda
 right_pad = pygame.Rect(460, 21, 20, 440)  # Cria o Rect para parede direita
 short_pad = pygame.Rect(40,441,420,20)   # Cria o Rect para parede supeior
@@ -64,14 +73,6 @@ while True:
 
     dt = clock.tick(30)
 
-    if keys[pygame.K_d] and barra_pad.collidelist([right_pad]) != 0:
-        velocity_Barra = 0.6
-        barra_pad.move_ip(velocity_Barra * dt, 0)
-
-    if keys[pygame.K_a] and barra_pad.collidelist([left_pad]) != 0:
-        velocity_Barra = -0.6
-        barra_pad.move_ip(velocity_Barra * dt, 0)
-
     # checa por colisão com os pads laterias
     if square.collidelist([left_pad,right_pad]) >= 0:
         velocity_x = -velocity_x
@@ -93,6 +94,7 @@ while True:
     else:
         screen.fill(black)
         square.move_ip(velocity_x * dt, parametro)
+        movimenta_barra()
 
     #if (square.collidelist(a) == 0):
     #    if (super_alvo in desenhos):
