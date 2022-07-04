@@ -89,6 +89,9 @@ while True:
     if square.collidelist([short_pad]) >= 0:
         texto = "GAME OVER"
         renderiza_texto(texto,130,200,60)
+    elif pontos >= 320:
+        texto = "PARABÉNS!!! FASE CONCLUÍDA"
+        renderiza_texto(texto, 130, 200, 30)
     else:
         screen.fill(black)
         square.move_ip(velocity_x * dt, parametro)
